@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+            font-family: 'Helvetica Neue', sans-serif;
+            margin: 0;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            background-color: #000;
+            align-items: center;
+            width:100%;
+            padding:1rem 0;
+        }
+
+        .logo {
+            margin:0 1rem;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.8em;
+        }
+
+        .links a {
+            color:#fff;
+            font-weight: bold; 
+            text-decoration: none;
+            font-size: 1.2em;
+            margin:0 1rem;
+        }
+
+        #container {
+            max-width: 100%;
+            margin: 0;
+            padding:1rem 0;
+        }
+
+        .blog-card:hover{
+            opacity:0.7;
+        }
+        .blog-list{
+            list-style: none;
+            padding:1rem 0; 
+            margin: 0; 
+        }
+        .blog-card {
+            
+            margin-bottom: 20px;
+        }
+
+        .blog-card img {
+            width: 100%;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .item {
+            width: 20%;
+            float: left;
+            box-sizing: border-box;
+            padding: 0 15px;
+            margin-bottom: 20px;
+        }
+        .top-div{
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 2rem auto;
+        }
+
+        .top-div h1{
+            /* font-size: 3rem; */
+            font-weight:600;
+            margin:0.5rem 0;
+        }
+
+        .top-div h2{
+            /* font-size: 2.5rem; */
+            font-weight: 600;
+            margin:0.5rem 0;
+        }
+
+        .main-div{
+            display:grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            margin:2rem;
+        }
+
+        .art-category-card{
+            background-color: #000;
+            color:#fff;
+            border-radius: 1rem;
+            margin:1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .link{
+            text-decoration: none;
+            color:#fff;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#" class="logo">Art United</a>
+        <div class="links">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'explore' %}">Explore</a>
+            <a href="{% url 'create_blog' %}">Create Blog</a>
+            <a href="{% url 'user_profile' username=request.user.username %}">Profile</a>
+            <a href="{% url 'index' %}">Logout</a>
+        </div>
+    </nav>
+    <div class="top-div">
+        <h2>{{ current_date }}</h2>
+        <h1> explore</h1>
+    </div>
+    <div class="main-div">
+        {% for category_value, category_display in category_choices %}
+            <div class="art-category-card">
+                <a class="link" href="{% url 'category_posts' category_value=category_value %}">
+                    <!-- Add an image for each category if needed -->
+                    <!-- <img src="{% static 'path/to/your/category/image.jpg' %}" alt="{{ category_display }}"> -->
+                    <h3>{{ category_display }}</h3>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- <div class="blog-container" id="container">
+        {% if blog_posts %}
+            <ul class="blog-list">
+                {% for blog_post in blog_posts %}
+                    <li class="blog-card item">
+                        {% if blog_post.image %}
+                        <a href="{% url 'show' blog_id=blog_post.id %}">
+                            <img src="{{ blog_post.image.url }}" alt="{{ blog_post.title }} Image">
+                        </a>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No blog posts available.</p>
+        {% endif %}
+    </div> -->
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js"></script>
+    <script>
+        var container = document.querySelector('#container');
+        var msnry = new Masonry(container, {
+            // options
+            columnWidth: '.item',
+            itemSelector: '.item'
+        });
+    </script> -->
+</body>
+</html>
